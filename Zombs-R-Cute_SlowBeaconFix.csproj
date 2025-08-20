@@ -294,7 +294,6 @@
         <Compile Include="SlowBeaconFix_Plugin.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="SlowBeaconFix_PluginConfiguration.cs" />
-        <Compile Include="ZombieManager_respawnZombie_Patch.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
