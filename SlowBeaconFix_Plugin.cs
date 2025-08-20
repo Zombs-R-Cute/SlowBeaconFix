@@ -14,11 +14,12 @@ namespace Zombs_R_Cute_SlowBeaconFix
     {
         private static bool _debug;
         private static int _maximumZombiesToSpawn;
+
         protected override void Load()
         {
             _debug = Configuration.Instance.Debug;
             _maximumZombiesToSpawn = Configuration.Instance.MaximumZombiesToSpawn;
-            
+
             Harmony harmony = new Harmony("Beacon Fix");
             harmony.PatchAll();
             Logger.Log($"Slow Beacon Fix Plugin Applied\n" +
@@ -55,15 +56,15 @@ namespace Zombs_R_Cute_SlowBeaconFix
 
                 if (remaining > _maximumZombiesToSpawn)
                     remaining = _maximumZombiesToSpawn;
-                
-                for (int i = 0; i < region.zombies.Count || remaining <= 0; i++)
+
+                for (int i = 0; i < region.zombies.Count && remaining > 0; i++)
                 {
-                    Zombie zomby = region.zombies[i];
+                    Zombie zomby = region.zombies[(i + region.respawnZombieIndex) % region.zombies.Count];
                     if (!zomby.isDead)
                         continue;
 
                     remaining--;
-                    
+
                     ZombieSpawnpoint zombieSpawnpoint = LevelZombies.zombies[___respawnZombiesBound][
                         Random.Range(0, LevelZombies.zombies[___respawnZombiesBound].Count)];
                     if (!SafezoneManager.checkPointValid(zombieSpawnpoint.point))
